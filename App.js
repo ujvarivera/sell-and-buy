@@ -18,9 +18,7 @@ export default function App() {
             let iconName;
 
             if (route.name === 'Home') {
-              iconName = focused
-                ? 'home'
-                : 'home-outline';
+              iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'NewProduct') {
               iconName = focused ? 'add-circle' : 'add-circle-outline';
             } else if (route.name === 'Profile') {
@@ -36,7 +34,7 @@ export default function App() {
         <Tab.Screen name="Home" component={ProductsScreen}/>
         <Tab.Screen name="NewProduct" component={AddNewProductScreen}
           options={{
-            tabBarLabel: 'Sell'
+            title: 'Sell Product'
           }}
         />
         <Tab.Screen name="Profile" component={ProfileScreen}/>
