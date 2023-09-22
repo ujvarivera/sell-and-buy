@@ -23,14 +23,12 @@ export default function AddNewProductScreen({ navigation }) {
       url: url,
     });
 
-    /*
     setTitle("")
     setDescription("")
     setCategory("")
     setCondition("")
     setPrice("")
     setUrl("")
-    */
     
     navigation.navigate('Home')
   }
@@ -38,12 +36,12 @@ export default function AddNewProductScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* <Title title="Add new Product" /> */}
-      <Input placeholder='title' onChange={(value) => setTitle(value)} />
-      <Input placeholder='description' onChange={(value) => setDescription(value)} />
-      <Input placeholder='category' onChange={(value) => setCategory(value)} />
-      <Input placeholder='condition' onChange={(value) => setCondition(value)} />
-      <Input placeholder='price' onChange={(value) => setPrice(value)} />
-      <Input placeholder='url' onChange={(value) => setUrl(value)} />
+      <Input placeholder='title' onChange={(value) => setTitle(value)} value={title}/>
+      <Input placeholder='description' onChange={(value) => setDescription(value)} value={description}/>
+      <Input placeholder='category' onChange={(value) => setCategory(value)} value={category}/>
+      <Input placeholder='condition' onChange={(value) => setCondition(value)} value={condition}/>
+      <Input placeholder='price' onChange={(value) => setPrice(value)} value={price}/>
+      <Input placeholder='url' onChange={(value) => setUrl(value)} value={url}/>
       <PrimaryButton title='Add' onPress={addProduct}/>
     </View>
   )

@@ -1,10 +1,10 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
 
-export default function Input({ placeholder, onChange }) {
+export default function Input(props) {
   return (
     <View>
-      <TextInput placeholder={placeholder} onChangeText={onChange} style={styles.input}/>
+      <TextInput onChangeText={props.onChange} style={styles.input} {...props}/>
     </View>
   )
 }

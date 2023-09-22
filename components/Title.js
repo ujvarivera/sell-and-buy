@@ -12,7 +12,7 @@ export default function Title({ title }) {
 const styles = StyleSheet.create({
     title: {
         fontSize: 24,
-        marginTop: 16,
+        marginVertical: 20,
         color: "violet"
     },
 });
