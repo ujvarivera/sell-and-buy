@@ -11,9 +11,9 @@ import Loading from './components/Loading';
 const Stack = createNativeStackNavigator()
 
 export default function Router() {
-  const { user } = useUser()
+  const { user, isAuthenticating } = useUser()
 
-  if (user === null) {
+  if (user === null || isAuthenticating) {
     return <Loading />
   }
 
