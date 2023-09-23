@@ -4,6 +4,7 @@ import { collection, db, addDoc } from "../config/firebase-config"
 import Input from '../components/Input'
 import PrimaryButton from '../components/PrimaryButton'
 import Title from '../components/Title'
+import useUser from '../hooks/useUser'
 
 export default function AddNewProductScreen({ navigation }) {
   const [ title, setTitle ] = useState("")
@@ -11,9 +12,11 @@ export default function AddNewProductScreen({ navigation }) {
   const [ category, setCategory ] = useState("")
   const [ condition, setCondition ] = useState("")
   const [ price, setPrice ] = useState("")
-  const [ url, setUrl ] = useState("")
+  const [ url, setUrl ] = useState("https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg")
+  const { user } = useUser()
 
   async function addProduct() {
+
     await addDoc(collection(db, "products"), {
       title: title,
       desription: description,
@@ -21,6 +24,7 @@ export default function AddNewProductScreen({ navigation }) {
       price: price,
       condition: condition,
       url: url,
+      userId: user.uid
     });
 
     setTitle("")

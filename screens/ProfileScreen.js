@@ -3,7 +3,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import useUser from "../hooks/useUser";
 
 export default function ProfileScreen({ navigation }) {
-    const { logout } = useUser()
+    const { user, logout } = useUser()
 
     function logoutHandler() {
         logout()
@@ -11,7 +11,6 @@ export default function ProfileScreen({ navigation }) {
     
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Profile</Text>
             <PrimaryButton title="Logout" onPress={logoutHandler} />
         </View>
     )

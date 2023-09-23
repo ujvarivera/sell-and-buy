@@ -1,16 +1,23 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Alert, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import PrimaryButton from '../../components/PrimaryButton';
 import useUser from '../../hooks/useUser';
 import Input from '../../components/Input';
 
-export default function Register({ navigation }) {
+export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { register } = useUser()
 
-  function registerHandler() {
-    register({ email, password });
+  async function registerHandler() {
+    try {
+      await register({ email, password });
+    } catch (error) {
+      Alert.alert(
+        'Authentication failed!',
+        'Could not register you in!'
+      )
+    }
   }
 
   return (
@@ -20,8 +27,8 @@ export default function Register({ navigation }) {
         <Text>Already have an account?</Text>
         <PrimaryButton title='Login' onPress={() => navigation.navigate('Login')} />
       </View>
-      <Input placeholder='email' value={email} onChange={(value) => setEmail(value)} keyboardType='email-address' />
-      <Input placeholder='password' value={password} onChange={(value) => setPassword(value)} secureTextEntry onSubmitEditing={registerHandler} />
+      <Input placeholder='email' value={email} onChange={(value) => setEmail(value)} keyboardType='email-address' autoCapitalize="none"/>
+      <Input placeholder='password' value={password} onChange={(value) => setPassword(value)} secureTextEntry onSubmitEditing={registerHandler} autoCapitalize="none"/>
       <PrimaryButton title='Register' onPress={registerHandler} />
     </SafeAreaView>
   )

@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import useUser from './hooks/useUser';
-import Login from "./screens/guests/Login"
-import Register from "./screens/guests/Register"
+import LoginScreen from "./screens/guests/LoginScreen"
+import RegisterScreen from "./screens/guests/RegisterScreen"
 import AuthenticatedStack from './AuthenticatedStack';
 import Loading from './components/Loading';
 
@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator()
 export default function Router() {
   const { user, isAuthenticating } = useUser()
 
-  if (user === null || isAuthenticating) {
+  if (isAuthenticating) {
     return <Loading />
   }
 
@@ -23,10 +23,10 @@ export default function Router() {
         headerShown: false
       }}>
         {
-          !user.token ?
+          !user?.token ?
             <Stack.Group>
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Register" component={Register} />
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Register" component={RegisterScreen} />
             </Stack.Group> :
             <Stack.Screen name="Root" component={AuthenticatedStack} />
         }
