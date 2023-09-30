@@ -27,7 +27,7 @@ Az alkalmazás backendként a Firebase (Backend as a Service) szolgáltatást ha
 
 ## Use-case-ek
 
-![use case](use-case.png)
+![use case](pics/use-case.png)
 <br />*use case diagram [draw.io](https://draw.io)*
 
 ---
@@ -38,7 +38,7 @@ Az alkalmazás backendként a Firebase (Backend as a Service) szolgáltatást ha
 
 ## Tartalomjegyzék
 
-  - [A rendszer célja, funkciói és környzete](#a-rendszer-célja-funkciói-és-környzete)
+  - [A rendszer célja, funkciói és környezete](#a-rendszer-célja-funkciói-és-környezete)
     - [Főbb funkciók](#főbb-funkciók)
   - [Felhasználói kézikönyv](#felhasználói-kézikönyv)
   - [Adatbázis architektúra](#adatbázis-architektúra)
@@ -51,17 +51,48 @@ Az alkalmazás backendként a Firebase (Backend as a Service) szolgáltatást ha
 
 ---
 
-## A rendszer célja, funkciói és környzete
+## A rendszer célja, funkciói és környezete
 
 ### Főbb funkciók
 
 Az alkalmazás minden funkcióját leírja. Legyen egyértelműen eldönthető, hogy az adott funkció implementálva van-e!
+
+&#x2611; Regisztráció és belépés
+&#x2611; Termék hozzáadása frontenden keresztül (cím, termékleírás, kategória, állapot, ár megadásával)
+&#9746; Saját termék törlésének lehetősége
+&#9746; Összes termék megtekintése
+&#9746; Saját termékek megtekintése profil oldalon
 
 ---
 
 ## Felhasználói kézikönyv
 
 Felhasználói leírás. Az összes releváns képernyő, funkció bemutatása képekkel!
+
+### Regisztráció és bejelentkezés
+
+Az alábbi képen a regisztráció oldala látható. Ha a felhasználó regisztrálni szeretne, e-mail címet és jelszavat szükséges megadnia. A bejelentkezési felület hasonlóan fog kinézni.
+
+![use case](pics/register.JPG)
+
+
+### Termékek megtekintése
+
+Ezen az oldalon a bejelentkezett felhasználó megtekintheti az összes terméket, az övét és más felhasználó által feltöltöttet is beleértve.
+
+![use case](pics/products.JPG)
+
+### Egy termék megtekintése
+
+Ha a bejelentkezett felhasználó egy termékre kattint, akkor megjelenik neki az adott termék oldala bővebb információkkal, pl. leírással, kategóriával, stb.
+
+![use case](pics/product.JPG)
+
+### Saját termék feltöltése
+
+A bejelentkezett felhasználó ezen az oldalon feltöltheti saját eladásra szánt termékeit. Cím, leírás, kategória, minőség és ár megadása szükséges.
+
+![use case](pics/add_product.JPG)
 
 ---
 
