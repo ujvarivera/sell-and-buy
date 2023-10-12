@@ -19,12 +19,13 @@ export default function AddNewProductScreen({ navigation }) {
 
     await addDoc(collection(db, "products"), {
       title: title,
-      desription: description,
+      description: description,
       category: category,
       price: price,
       condition: condition,
       url: url,
-      userId: user.uid
+      userId: user.uid ? user.uid : null,
+      createdAt: new Date()
     });
 
     setTitle("")
@@ -32,7 +33,7 @@ export default function AddNewProductScreen({ navigation }) {
     setCategory("")
     setCondition("")
     setPrice("")
-    setUrl("")
+    setUrl("https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg")
     
     navigation.navigate('Home')
   }
