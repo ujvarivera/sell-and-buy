@@ -44,7 +44,7 @@ export default function ProfileScreen({ navigation }) {
                             product: item
                         })} android_ripple={{ color: "violet" }}>
                             <View style={{margin: 16}}>
-                                <Image source={{ uri: item.url }} width={150} height={150} />
+                                <Image source={{ uri: item.image.uri }} width={150} height={150} />
                                 <Text>
                                     { item.title.length > 15 ? 
                                         item.title.substring(0, 15) + '...' :

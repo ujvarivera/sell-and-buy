@@ -15,7 +15,7 @@ export default function ProductScreen({ navigation, route }) {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Title title={product.title}/>
-                <Image source={{ uri: product.url }} style={styles.productImage} />
+                <Image source={{ uri: product.image.uri }} style={styles.productImage} />
                 <View style={styles.labels}>
                     <Text style={styles.productCategory}>{product.category}</Text>
                     <Text style={styles.productCategory}>{product.price}$</Text>
