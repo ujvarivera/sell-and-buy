@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, addDoc, getDocs, collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { getFirestore, addDoc, getDocs, collection, query, orderBy, onSnapshot, where } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import Constants from 'expo-constants';
 
@@ -21,5 +21,6 @@ export {
     signOut,
     query,
     orderBy,
-    onSnapshot
+    onSnapshot,
+    where
 }
