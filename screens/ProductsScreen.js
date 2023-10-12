@@ -1,43 +1,33 @@
-import { db, collection, query, orderBy, onSnapshot, where } from '../config/firebase-config'
+import { useEffect, useState } from "react";
+import { db, collection, query, getDocs, orderBy, onSnapshot } from '../config/firebase-config'
 import { FlatList, Image, Pressable, Text, View } from "react-native";
-import PrimaryButton from "../components/PrimaryButton";
-import Title from "../components/Title";
-import useUser from "../hooks/useUser";
-import { useEffect, useState } from 'react';
 
-export default function ProfileScreen({ navigation }) {
-    const { user, logout } = useUser()
-    const [ myProducts, setMyProducts ] = useState([]);
+export default function ProductsScreen({ navigation }) {
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        async function getMyProducts() {
-            const q = query(
-                collection(db, "products"), 
-                orderBy("createdAt", "desc"), 
-                where('userId', '==', user.uid))
-
+        async function getProducts() {
+            const q = query(collection(db, "products"), orderBy("createdAt", "desc"))
+            // const data = await getDocs(q)
+            // const docs = data.docs.map(doc => ({ ...doc.data() }))
+            // setProducts(docs);
             const unsubscribe = onSnapshot(q, (data) => {
                 const docs = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-                setMyProducts(docs)
+                setProducts(docs)
             })
 
             return () => unsubscribe()
         }
 
-        getMyProducts()
-    }, []) 
+        getProducts()
+    }, [])
 
-    function logoutHandler() {
-        logout()
-    }   
-    
     return (
+
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Title title={user?.email}/> 
-            <PrimaryButton title="Logout" onPress={logoutHandler} />
-            <Title title="My Products"/> 
+            { /* <Title title="Products" /> */ }
             <FlatList
-                data={myProducts}
+                data={products}
                 renderItem={({ item }) => {
                     return (
                         <Pressable onPress={() => navigation.navigate("Product", {
