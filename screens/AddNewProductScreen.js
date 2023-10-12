@@ -13,6 +13,7 @@ import {
 } from 'firebase/storage'
 import * as ImagePicker from 'expo-image-picker'
 import uuid from 'react-native-uuid'
+import DropdownSelect from 'react-native-input-select'
 
 export default function AddNewProductScreen({ navigation }) {
   const [ title, setTitle ] = useState("")
@@ -92,8 +93,31 @@ export default function AddNewProductScreen({ navigation }) {
       {/* <Title title="Add new Product" /> */}
       <Input placeholder='title' onChange={(value) => setTitle(value)} value={title}/>
       <Input placeholder='description' onChange={(value) => setDescription(value)} value={description}/>
-      <Input placeholder='category' onChange={(value) => setCategory(value)} value={category}/>
-      <Input placeholder='condition' onChange={(value) => setCondition(value)} value={condition}/>
+      <DropdownSelect
+            placeholder="Select a category..."
+            options={[
+              { name: 'Clothing', id: 'clothing' },
+              { name: 'Electronics', id: 'electronics' },
+              { name: 'Entertainment', id: 'entertainment' },
+            ]}
+            optionLabel={'name'}
+            optionValue={'id'}
+            selectedValue={category}
+            onValueChange={(value) => setCategory(value)}
+            primaryColor={'violet'}
+          />
+          <DropdownSelect
+            placeholder="Select the condition..."
+            options={[
+              { name: 'New', id: 'new' },
+              { name: 'Used', id: 'used' },
+            ]}
+            optionLabel={'name'}
+            optionValue={'id'}
+            selectedValue={condition}
+            onValueChange={(value) => setCondition(value)}
+            primaryColor={'violet'}
+          />
       <Input placeholder='price' onChange={(value) => setPrice(value)} value={price}/>
       <PrimaryButton title="select image" onPress={handleImage} />
       <PrimaryButton title='Add' onPress={addProduct}/>
