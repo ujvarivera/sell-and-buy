@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { collection, db, addDoc, storage } from "../config/firebase-config"
 import Input from '../components/Input'
@@ -36,7 +36,6 @@ export default function AddNewProductScreen({ navigation }) {
         reject(new TypeError('Network request failed'))
       }
       xhr.responseType = 'blob'
-      console.log(image.uri)
       xhr.open('GET', image.uri, true)
       xhr.send(null)
     })
@@ -45,7 +44,6 @@ export default function AddNewProductScreen({ navigation }) {
     const fileRef = ref(storage, `images/${user.uid}/${uid}`)
     const result = await uploadBytes(fileRef, blob)
 
-    // We're done with the blob, close and release it
     blob.close()
 
     const url = await getDownloadURL(fileRef)
@@ -59,6 +57,7 @@ export default function AddNewProductScreen({ navigation }) {
       // url: url,
       userId: user.uid ? user.uid : null,
       createdAt: new Date(),
+      updatedAt: null,
       image: { uri: url, uid },
     });
 
@@ -77,7 +76,7 @@ export default function AddNewProductScreen({ navigation }) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [4, 4],
       quality: 1,
     })
 
@@ -89,7 +88,7 @@ export default function AddNewProductScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerStyle}>
       {/* <Title title="Add new Product" /> */}
       <Input placeholder='title' onChange={(value) => setTitle(value)} value={title}/>
       <Input placeholder='description' onChange={(value) => setDescription(value)} value={description}/>
@@ -105,6 +104,9 @@ export default function AddNewProductScreen({ navigation }) {
             selectedValue={category}
             onValueChange={(value) => setCategory(value)}
             primaryColor={'violet'}
+            dropdownStyle={{
+              borderColor: 'violet',
+            }}
           />
           <DropdownSelect
             placeholder="Select the condition..."
@@ -117,26 +119,37 @@ export default function AddNewProductScreen({ navigation }) {
             selectedValue={condition}
             onValueChange={(value) => setCondition(value)}
             primaryColor={'violet'}
+            dropdownStyle={{
+              borderColor: 'violet',
+            }}
           />
-      <Input placeholder='price' onChange={(value) => setPrice(value)} value={price}/>
-      <PrimaryButton title="select image" onPress={handleImage} />
-      <PrimaryButton title='Add' onPress={addProduct}/>
+      <Input placeholder='price (in $)' onChange={(value) => setPrice(value)} value={price}/>
+      {
+        !image && 
+          <PrimaryButton title="Select Image" onPress={handleImage} />
+      }
       {image && (
-        <Image
-          source={{ uri: image?.uri }}
-          style={{ width: '100%', height: 300, objectFit: 'contain' }}
-        />
+        <>
+          <Image
+            source={{ uri: image?.uri }}
+            style={{ width: '100%', height: 300, objectFit: 'contain' }}
+          />
+          <PrimaryButton title='Delete Image' onPress={() => setImage(null)}/>
+        </>
       )}
-    </View>
+      <PrimaryButton title='Upload' onPress={addProduct}/>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
+    paddingHorizontal: 12,
+  },
+  contentContainerStyle: {
     alignItems: 'stretch',
     justifyContent: 'center',
-    paddingHorizontal: 12,
   },
   text: {
     alignItems: 'center',

@@ -1,10 +1,10 @@
 import { View, Button } from 'react-native'
 import React from 'react'
 
-export default function PrimaryButton({ onPress, title }) {
+export default function PrimaryButton({ onPress, title, color='violet' }) {
   return (
-    <View>
-      <Button title={title} onPress={onPress} color="violet"/>
+    <View style={{ margin: 6 }}>
+      <Button title={title} onPress={onPress} color={color} />
     </View>
   )
 }

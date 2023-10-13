@@ -14,11 +14,13 @@ export default function ProductScreen({ navigation, route }) {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
-                <Title title={product.title}/>
-                <Image source={{ uri: product.image.uri }} style={styles.productImage} />
-                <View style={styles.labels}>
-                    <Text style={styles.productCategory}>{product.category}</Text>
-                    <Text style={styles.productCategory}>{product.price}$</Text>
+                <View style={styles.middle}>
+                    <Title title={product.title}/>
+                    <Image source={{ uri: product.image.uri }} style={styles.productImage} />
+                    <View style={styles.labels}>
+                        <Text style={styles.productCategory}>{product.category}</Text>
+                        <Text style={styles.productCategory}>{product.price}$</Text>
+                    </View>
                 </View>
                 <Text>{product.description}</Text>
             </ScrollView>
@@ -40,6 +42,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 16
+    },
+    middle: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     productImage: {
         // width: '100%',

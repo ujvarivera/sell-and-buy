@@ -3,7 +3,7 @@ import { FlatList, Image, Pressable, Text, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import Title from "../components/Title";
 import useUser from "../hooks/useUser";
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 export default function ProfileScreen({ navigation }) {
     const { user, logout } = useUser()
@@ -27,20 +27,25 @@ export default function ProfileScreen({ navigation }) {
         getMyProducts()
     }, []) 
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+          headerRight: () => <PrimaryButton title="Logout" onPress={logoutHandler} />
+        })
+    }, [navigation])
+
     function logoutHandler() {
         logout()
     }   
     
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Title title={user?.email}/> 
-            <PrimaryButton title="Logout" onPress={logoutHandler} />
+            { /* <Title title={user?.email}/> */}
             <Title title="My Products"/> 
             <FlatList
                 data={myProducts}
                 renderItem={({ item }) => {
                     return (
-                        <Pressable onPress={() => navigation.navigate("Product", {
+                        <Pressable onPress={() => navigation.navigate("Edit Product", {
                             product: item
                         })} android_ripple={{ color: "violet" }}>
                             <View style={{margin: 16}}>
