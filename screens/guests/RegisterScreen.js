@@ -1,6 +1,7 @@
 import { Alert, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import PrimaryButton from '../../components/PrimaryButton';
+import TouchableComponent from '../../components/TouchableComponent'
 import useUser from '../../hooks/useUser';
 import Input from '../../components/Input';
 
@@ -22,14 +23,14 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Register</Text>
-      <View>
-        <Text>Already have an account?</Text>
-        <PrimaryButton title='Login' onPress={() => navigation.navigate('Login')} />
-      </View>
+      <Text style={styles.text}>Sell & Buy</Text>
       <Input placeholder='email' value={email} onChange={(value) => setEmail(value)} keyboardType='email-address' autoCapitalize="none"/>
       <Input placeholder='password' value={password} onChange={(value) => setPassword(value)} secureTextEntry onSubmitEditing={registerHandler} autoCapitalize="none"/>
       <PrimaryButton title='Register' onPress={registerHandler} />
+      <View style={styles.flexRow}>
+        <Text>Already have an account?</Text>
+        <TouchableComponent title='Login' onPress={() => navigation.navigate('Login')} />
+      </View>
     </SafeAreaView>
   )
 }
@@ -42,4 +43,15 @@ const styles = StyleSheet.create({
     padding: 16,
     width: '100%'
   },
+  flexRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20
+  },
+  text: {
+    fontSize: 30,
+    color: 'violet',
+    marginBottom: 20,
+    textAlign: 'center'
+  }
 });
