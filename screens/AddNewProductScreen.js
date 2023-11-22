@@ -1,19 +1,16 @@
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import { StyleSheet, Image, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { collection, db, addDoc, storage } from "../config/firebase-config"
 import Input from '../components/Input'
 import PrimaryButton from '../components/PrimaryButton'
-import Title from '../components/Title'
 import useUser from '../hooks/useUser'
 import {
-  deleteObject,
   getDownloadURL,
   ref,
   uploadBytes,
 } from 'firebase/storage'
 import * as ImagePicker from 'expo-image-picker'
 import uuid from 'react-native-uuid'
-import DropdownSelect from 'react-native-input-select'
 import Dropdown from '../components/Dropdown'
 
 export default function AddNewProductScreen({ navigation }) {
@@ -27,50 +24,57 @@ export default function AddNewProductScreen({ navigation }) {
   const { user } = useUser()
 
   async function addProduct() {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest()
-      xhr.onload = function () {
-        resolve(xhr.response)
-      }
-      xhr.onerror = function (e) {
-        console.log(e)
-        reject(new TypeError('Network request failed'))
-      }
-      xhr.responseType = 'blob'
-      xhr.open('GET', image.uri, true)
-      xhr.send(null)
-    })
-    const uid = uuid.v4()
-
-    const fileRef = ref(storage, `images/${user.uid}/${uid}`)
-    const result = await uploadBytes(fileRef, blob)
-
-    blob.close()
-
-    const url = await getDownloadURL(fileRef)
-
-    await addDoc(collection(db, "products"), {
-      title: title,
-      description: description,
-      category: category,
-      price: price,
-      condition: condition,
-      // url: url,
-      userId: user.uid ? user.uid : null,
-      createdAt: new Date(),
-      updatedAt: null,
-      image: { uri: url, uid },
-    });
-
-    setTitle("")
-    setDescription("")
-    setCategory("")
-    setCondition("")
-    setPrice("")
-    setImage(null);
-    // setUrl("https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg")
-    
-    navigation.navigate('Home', { screen: 'Products' })
+    try {
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.onload = function () {
+          resolve(xhr.response)
+        }
+        xhr.onerror = function (e) {
+          console.log(e)
+          reject(new TypeError('Network request failed'))
+        }
+        xhr.responseType = 'blob'
+        xhr.open('GET', image.uri, true)
+        xhr.send(null)
+      })
+      const uid = uuid.v4()
+  
+      const fileRef = ref(storage, `images/${user.uid}/${uid}`)
+      const result = await uploadBytes(fileRef, blob)
+  
+      blob.close()
+  
+      const url = await getDownloadURL(fileRef)
+  
+      await addDoc(collection(db, "products"), {
+        title: title,
+        description: description,
+        category: category,
+        price: price,
+        condition: condition,
+        // url: url,
+        userId: user.uid ? user.uid : null,
+        createdAt: new Date(),
+        updatedAt: null,
+        image: { uri: url, uid },
+      });
+  
+      setTitle("")
+      setDescription("")
+      setCategory("")
+      setCondition("")
+      setPrice("")
+      setImage(null);
+      // setUrl("https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg")
+      
+      navigation.navigate('Home', { screen: 'Products' })
+    } catch (error) {
+        Alert.alert(
+          'Product uploading failed!',
+          'Please choose an image!'
+        )
+    }
   }
 
   const handleImage = async () => {
