@@ -1,15 +1,15 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native';
 import ProductsStack from './screens/ProductsStack';
-import ProfileScreen from './screens/ProfileScreen';
 import AddNewProductScreen from './screens/AddNewProductScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import ProfileStack from './screens/ProfileStack';
 
 const Tab = createBottomTabNavigator()
 
 export default function AuthenticatedStack() {
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -40,7 +40,11 @@ export default function AuthenticatedStack() {
                     title: 'Sell Product'
                 }}
             />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
+            <Tab.Screen name="Profile" component={ProfileStack} 
+                options={{
+                    headerShown: false
+                }}
+            />
         </Tab.Navigator>
     )
 }

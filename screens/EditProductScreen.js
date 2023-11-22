@@ -33,8 +33,8 @@ export default function EditProductScreen({ navigation, route }) {
   async function handleDelete() {
     await deleteDoc(doc(db, 'products', product.id))
     await deleteObject(ref(storage, `images/${user.uid}/${image.uid}`))
-    // navigation.navigate("Profile")
-    navigation.goBack()
+    navigation.navigate("My Profile")
+    // navigation.goBack()
   }
 
   async function handleUpdate() {
@@ -49,8 +49,8 @@ export default function EditProductScreen({ navigation, route }) {
       updatedAt: new Date(),
       image: product.image //{ uri: url, uid },
     })
-    // navigation.navigate("Profile")
-    navigation.goBack()
+    navigation.navigate("My Profile")
+    // navigation.goBack()
   }
 
   return (
@@ -59,40 +59,40 @@ export default function EditProductScreen({ navigation, route }) {
         source={{ uri: image.uri }}
         style={{ width: '100%', height: 300, objectFit: 'contain', borderRadius: 12 }}
       />
-      <Input onChange={(value) => setTitle(value)} value={title}/>
-      <Input onChange={(value) => setDescription(value)} value={description}/>
+      <Input placeholder="Title" onChange={(value) => setTitle(value)} value={title}/>
+      <Input placeholder="Description" onChange={(value) => setDescription(value)} value={description}/>
       <DropdownSelect
-            options={[
-              { name: 'Clothing', id: 'clothing' },
-              { name: 'Electronics', id: 'electronics' },
-              { name: 'Entertainment', id: 'entertainment' },
-            ]}
-            optionLabel={'name'}
-            optionValue={'id'}
-            selectedValue={category}
-            onValueChange={(value) => setCategory(value)}
-            primaryColor={'violet'}
-            dropdownStyle={{
-              borderColor: 'violet',
-            }}
-          />
-          <DropdownSelect
-            options={[
-              { name: 'New', id: 'new' },
-              { name: 'Used', id: 'used' },
-            ]}
-            optionLabel={'name'}
-            optionValue={'id'}
-            selectedValue={condition}
-            onValueChange={(value) => setCondition(value)}
-            primaryColor={'violet'}
-            dropdownStyle={{
-              borderColor: 'violet',
-            }}
-          />
-          <Input onChange={(value) => setPrice(value)} value={price}/>
+        options={[
+          { name: 'Clothing', id: 'clothing' },
+          { name: 'Electronics', id: 'electronics' },
+          { name: 'Entertainment', id: 'entertainment' },
+        ]}
+        optionLabel={'name'}
+        optionValue={'id'}
+        selectedValue={category}
+        onValueChange={(value) => setCategory(value)}
+        primaryColor={'violet'}
+        dropdownStyle={{
+          borderColor: 'violet',
+        }}
+      />
+      <DropdownSelect
+        options={[
+          { name: 'New', id: 'new' },
+          { name: 'Used', id: 'used' },
+        ]}
+        optionLabel={'name'}
+        optionValue={'id'}
+        selectedValue={condition}
+        onValueChange={(value) => setCondition(value)}
+        primaryColor={'violet'}
+        dropdownStyle={{
+          borderColor: 'violet',
+        }}
+      />
+      <Input placeholder="Price (in $)" onChange={(value) => setPrice(value)} value={price}/>
 
-          <PrimaryButton title="Update" onPress={handleUpdate}/>
+      <PrimaryButton title="Update" onPress={handleUpdate}/>
 
     </ScrollView>
   )

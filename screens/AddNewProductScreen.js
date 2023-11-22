@@ -14,6 +14,7 @@ import {
 import * as ImagePicker from 'expo-image-picker'
 import uuid from 'react-native-uuid'
 import DropdownSelect from 'react-native-input-select'
+import Dropdown from '../components/Dropdown'
 
 export default function AddNewProductScreen({ navigation }) {
   const [ title, setTitle ] = useState("")
@@ -69,7 +70,7 @@ export default function AddNewProductScreen({ navigation }) {
     setImage(null);
     // setUrl("https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg")
     
-    navigation.navigate('Home')
+    navigation.navigate('Home', { screen: 'Products' })
   }
 
   const handleImage = async () => {
@@ -90,40 +91,28 @@ export default function AddNewProductScreen({ navigation }) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainerStyle}>
       {/* <Title title="Add new Product" /> */}
-      <Input placeholder='title' onChange={(value) => setTitle(value)} value={title}/>
-      <Input placeholder='description' onChange={(value) => setDescription(value)} value={description}/>
-      <DropdownSelect
-            placeholder="Select a category..."
-            options={[
-              { name: 'Clothing', id: 'clothing' },
-              { name: 'Electronics', id: 'electronics' },
-              { name: 'Entertainment', id: 'entertainment' },
-            ]}
-            optionLabel={'name'}
-            optionValue={'id'}
-            selectedValue={category}
-            onValueChange={(value) => setCategory(value)}
-            primaryColor={'violet'}
-            dropdownStyle={{
-              borderColor: 'violet',
-            }}
-          />
-          <DropdownSelect
-            placeholder="Select the condition..."
-            options={[
-              { name: 'New', id: 'new' },
-              { name: 'Used', id: 'used' },
-            ]}
-            optionLabel={'name'}
-            optionValue={'id'}
-            selectedValue={condition}
-            onValueChange={(value) => setCondition(value)}
-            primaryColor={'violet'}
-            dropdownStyle={{
-              borderColor: 'violet',
-            }}
-          />
-      <Input placeholder='price (in $)' onChange={(value) => setPrice(value)} value={price}/>
+      <Input placeholder='Title' onChange={(value) => setTitle(value)} value={title}/>
+      <Input placeholder='Description' onChange={(value) => setDescription(value)} value={description}/>
+      <Dropdown 
+        placeholder="Select a category..."
+        options={[
+          { name: 'Clothing', id: 'clothing' },
+          { name: 'Electronics', id: 'electronics' },
+          { name: 'Entertainment', id: 'entertainment' },
+        ]}
+        selectedValue={category}
+        onValueChange={(value) => setCategory(value)}
+      />
+      <Dropdown 
+        placeholder="Select the condition..."
+        options={[
+          { name: 'New', id: 'new' },
+          { name: 'Used', id: 'used' },
+        ]}
+        selectedValue={condition}
+        onValueChange={(value) => setCondition(value)}
+      /> 
+      <Input placeholder='Price (in $)' onChange={(value) => setPrice(value)} value={price}/>
       {
         !image && 
           <PrimaryButton title="Select Image" onPress={handleImage} />

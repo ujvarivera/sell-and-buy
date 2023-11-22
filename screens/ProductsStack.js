@@ -13,7 +13,7 @@ export default function ProductsStack({ navigation }) {
         <Stack.Navigator>
             <Stack.Screen name="Products" component={ProductsScreen} />
             <Stack.Screen name="Product" component={ProductScreen} />
-            <Stack.Screen name="Edit Product" component={EditProductScreen} />
+            {/* <Stack.Screen name="Edit Product" component={EditProductScreen} /> */}
         </Stack.Navigator>
     )
 }
