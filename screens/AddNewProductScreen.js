@@ -12,6 +12,7 @@ import {
 import * as ImagePicker from 'expo-image-picker'
 import uuid from 'react-native-uuid'
 import Dropdown from '../components/Dropdown'
+import TouchableComponent from '../components/TouchableComponent'
 
 export default function AddNewProductScreen({ navigation }) {
   const [ title, setTitle ] = useState("")
@@ -119,7 +120,7 @@ export default function AddNewProductScreen({ navigation }) {
       <Input placeholder='Price (in $)' onChange={(value) => setPrice(value)} value={price}/>
       {
         !image && 
-          <PrimaryButton title="Select Image" onPress={handleImage} />
+          <TouchableComponent style={styles.imageButton} title="Select Image" onPress={handleImage} />
       }
       {image && (
         <>
@@ -127,7 +128,7 @@ export default function AddNewProductScreen({ navigation }) {
             source={{ uri: image?.uri }}
             style={{ width: '100%', height: 300, objectFit: 'contain' }}
           />
-          <PrimaryButton title='Delete Image' onPress={() => setImage(null)}/>
+          <TouchableComponent  title='Delete Image' onPress={() => setImage(null)}/>
         </>
       )}
       <PrimaryButton title='Upload' onPress={addProduct}/>
@@ -146,5 +147,5 @@ const styles = StyleSheet.create({
   },
   text: {
     alignItems: 'center',
-  }
+  },
 });

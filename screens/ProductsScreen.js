@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db, collection, query, getDocs, orderBy, onSnapshot } from '../config/firebase-config'
-import { FlatList, Image, Pressable, Text, View } from "react-native";
+import { FlatList, Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function ProductsScreen({ navigation }) {
     const [products, setProducts] = useState([]);
@@ -35,7 +35,7 @@ export default function ProductsScreen({ navigation }) {
                         })} android_ripple={{ color: "violet" }}>
                             <View style={{margin: 16}}>
                                 <Image source={{ uri: item.image.uri }} width={150} height={150} />
-                                <Text>
+                                <Text style={styles.title}>
                                     { item.title.length > 15 ? 
                                         item.title.substring(0, 15) + '...' :
                                         item.title
@@ -51,3 +51,10 @@ export default function ProductsScreen({ navigation }) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    title: {
+        marginTop: 10,
+        color: 'violet',
+    }
+});

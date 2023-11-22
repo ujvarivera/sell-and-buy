@@ -13,7 +13,8 @@ export default function Dropdown({ placeholder=null, options, selectedValue, onV
             primaryColor={'violet'}
             dropdownStyle={{
                 borderColor: 'violet',
-                marginTop: 10,
+                // marginTop: 10,
+                // marginBottom: 10,
             }}
             placeholderStyle={{
                 color: 'gray'
